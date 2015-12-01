@@ -5,7 +5,7 @@ package com.brookji.unlearning.happyscala
   *
   * Brook Ji
   *
-  * Apply for QQ Group "无水Scala"
+  * 申请加入 QQ Group "无水Scala"
   *
   */
 class HappyScala {
@@ -24,22 +24,26 @@ class HappyScala {
       None
     }else{
       val sum1 = hexSum(headerArray)
-      println(sum1.mkString(""))
+      //println(sum1.mkString(""))
       val tmpArray = Array[String]("000" + sum1(0), sum1.takeRight(4).mkString(""))
-
       val sum2 = hexSum(tmpArray).takeRight(4)
-      println(sum2.mkString(""))
+      //println(sum2.mkString(""))
       val checkSumValue = sum2.map{
         ch =>
           toHex(toBinary(ch).map(a => if (a.equals('0')) '1' else '0' ))
       }.mkString("")
       headerArray(checkIndex) = checkSumValue
-      println(checkSumValue)
+      //println(checkSumValue)
       Some(headerArray.mkString(" "))
 
     }
   }
 
+  /**
+    * 4位二进制转化为16进制
+    * @param array
+    * @return
+    */
   private def toHex(array : Array[Char]) : Char = {
     val t1 = if (array(0).equals('1')) 8 else 0
     val t2 = if (array(1).equals('1')) 4 else 0
@@ -52,7 +56,11 @@ class HappyScala {
       ('a' + (t - 10) ).toChar
   }
 
-
+  /**
+    * 16进制转化为2进制
+    * @param ch
+    * @return
+    */
   private def toBinary(ch : Char) : Array[Char] = {
     val t : Int = if (ch <= '9') ch - '0' else ch - 'a' + 10
     val t1 = if ( (t & 8) > 0 ) '1' else '0'
@@ -138,11 +146,3 @@ class HappyScala {
 
 }
 
-object Test{
-  def main(args: Array[String]) {
-    val str = "4500 0073 0000 4000 4011 0000 c0a8 0001 c0a8 00c7"
-    val result = new HappyScala().checkSum(str)
-    println(str)
-    println(result)
-  }
-}
